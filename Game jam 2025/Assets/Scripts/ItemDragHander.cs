@@ -6,10 +6,11 @@ using UnityEngine.EventSystems;
 public class ItemDragHander : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     Transform originalParent;
-    CanvasGroup canvasGroup;
+    [SerializeField] CanvasGroup canvasGroup;
 
     void Start()
     {
+        GetComponent<CanvasGroup>();
         CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
     }
 
@@ -17,9 +18,9 @@ public class ItemDragHander : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     {
         originalParent = transform.parent;
         transform.SetParent(transform.root);
-        canvasGroup.blocksRaycasts = false;
-        canvasGroup.alpha = 0.6f;
-
+        
+            canvasGroup.blocksRaycasts = false;
+            canvasGroup.alpha = 0.6f;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -29,8 +30,9 @@ public class ItemDragHander : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        canvasGroup.blocksRaycasts = true;
-        canvasGroup.alpha = 1f;
+
+            canvasGroup.blocksRaycasts = true;
+            canvasGroup.alpha = 1f;
 
         Slot dropSlot = eventData.pointerEnter?.GetComponent<Slot>();
         if(dropSlot == null)
